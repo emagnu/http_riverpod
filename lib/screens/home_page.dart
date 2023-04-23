@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_riverpod/models/user_model.dart';
+import 'package:http_riverpod/screens/detail_screen.dart';
 // Import FILES
 import '../providers/user_data_provider.dart';
 // Import PARTS
@@ -38,21 +39,30 @@ class HomePage extends ConsumerWidget {
                     child: ListView.builder(
                   itemCount: userList.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      color: Colors.indigo,
-                      elevation: 4,
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: ListTile(
-                        title: Text(
-                          'Name:  ${userList[index].firstName} ${userList[index].lastName}',
-                          style: const TextStyle(color: Colors.white),
+                    return InkWell(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DetailScreen(e: userList[index]),
                         ),
-                        subtitle: Text(
-                          'Email:  ${userList[index].email}',
-                          style: const TextStyle(color: Colors.white54),
-                        ),
-                        trailing: CircleAvatar(
-                          backgroundImage: NetworkImage(userList[index].avatar),
+                      ),
+                      child: Card(
+                        color: Colors.indigo,
+                        elevation: 4,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        child: ListTile(
+                          title: Text(
+                            'Name:  ${userList[index].firstName} ${userList[index].lastName}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          subtitle: Text(
+                            'Email:  ${userList[index].email}',
+                            style: const TextStyle(color: Colors.white54),
+                          ),
+                          trailing: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(userList[index].avatar),
+                          ),
                         ),
                       ),
                     );
